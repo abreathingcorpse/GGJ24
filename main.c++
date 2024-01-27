@@ -14,6 +14,7 @@ int main(void)
 
     float elapsed_time; // This will hold the time in seconds for last frame drawn(delta time)
     float mouseWheelMove;
+    Vector2 mousePosition; 
 
     const float MAX_WIDTH_NODES  = DivisionRounder((float)screenWidth, 60.0f);
     const float MAX_HEIGHT_NODES  = DivisionRounder((float)screenHeight, 60.0f);
@@ -26,9 +27,11 @@ int main(void)
         }
     }
 
-    Color colorArray[] = {
-         MAROON, RED, GOLD, YELLOW, LIME, GREEN, BLUE, SKYBLUE, VIOLET, PURPLE, LIGHTGRAY
-        };
+    Color colorArray[(int)MAX_WIDTH_NODES * (int)MAX_HEIGHT_NODES];
+
+//    Color colorArray[] = {
+//         MAROON, RED, GOLD, YELLOW, LIME, GREEN, BLUE, SKYBLUE, VIOLET, PURPLE, LIGHTGRAY
+//        };
 
     // --- End of Initialization
 
@@ -41,6 +44,12 @@ int main(void)
         // --- Update 
         elapsed_time = GetFrameTime();
         mouseWheelMove = GetMouseWheelMove();
+        mousePosition = GetMousePosition();
+        for (int i=0; i <= (sizeof(colorArray)/sizeof(Color)); i++) {
+            if (CheckCollisionPointCircle(mousePosition, nodePositionsArray[i], nodeRadius)) {
+                colorArray[i] = GOLD;
+            } else { colorArray[i] = LIGHTGRAY; }
+        }
 //        nodePosition.x += mouseWheelMove * 10.0f;
         // --- End of Update 
 
@@ -50,7 +59,7 @@ int main(void)
 //            DrawText(TextFormat("MAX_WIDTH_NODES : %.02f", MAX_WIDTH_NODES), 20, 30, 30, DARKGRAY);
 
             for (int i = 0; i <= (sizeof(nodePositionsArray)/sizeof(Vector2)); i++) {
-                DrawCircleV(nodePositionsArray[i], nodeRadius, LIGHTGRAY);
+                DrawCircleV(nodePositionsArray[i], nodeRadius, colorArray[i]);
             }
 
 //            for (int i = 0; i < (sizeof(colorArray)/sizeof(Color)); i++) {
