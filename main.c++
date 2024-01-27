@@ -1,6 +1,5 @@
 #include <raylib.h>
 #include "header.h"
-#include <cmath> // Used for fabs()
 
 int main(void)
 {
@@ -10,8 +9,6 @@ int main(void)
 	InitWindow(screenWidth, screenHeight, "Healing through stand-up");
 
     const float nodeRadius = 30.0f; // Apparently they look from from [30,50]
-    const float CLOSE_TO_ZERO = 1e-20; // Used whenever you want to compare a float vs zero
-    const float CLOSE_TO_INFINITE = 1e15; // Used whenever you want to compare a float vs a huge number
 
     float elapsed_time; // This will hold the time in seconds for last frame drawn(delta time)
     float mouseWheelMove;
