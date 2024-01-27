@@ -7,7 +7,10 @@ int main(void)
 	InitWindow(1024, 640, "Healing through stand-up");
 
     const Vector2 nodePosition = { 600.0f, 250.0f };
-    const float nodeRadius = 3.0f;
+    float nodeRadius = 30.0f; // Apparently they look from from [30,50]
+
+    float elapsed_time; // This will hold the time in seconds for last frame drawn(delta time)
+    float mouseWheelMove;
 
     // --- End of Initialization
 
@@ -18,12 +21,16 @@ int main(void)
 	while (!WindowShouldClose())
 	{
         // --- Update 
+        elapsed_time = GetFrameTime();
+        mouseWheelMove = GetMouseWheelMove();
+        nodeRadius += mouseWheelMove;
         // --- End of Update 
 
         // --- Drawing 
 		BeginDrawing();
 			ClearBackground(RAYWHITE);
-//			DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+//			DrawText("Congrats! You crekkkkkkkkated your first window!", 190, 200, 20, LIGHTGRAY);
+            DrawText(TextFormat("radius : %.02f", nodeRadius), 20, 70, 10, DARKGRAY);
             DrawCircleV(nodePosition, nodeRadius, LIGHTGRAY);
 		EndDrawing();
         // --- End of Drawing 
