@@ -15,29 +15,38 @@ int main(void)
     Vector2 mousePosition; 
 
     // Just tried to check whether having multiple nodes would mess anything or not
-    const float MAX_WIDTH_NODES  = DivisionRounder((float)screenWidth, 60.0f);
-    const float MAX_HEIGHT_NODES  = DivisionRounder((float)screenHeight, 60.0f);
-    const int NODE_ARRAY_SIZE = MAX_WIDTH_NODES * MAX_HEIGHT_NODES;
+//    const float MAX_WIDTH_NODES  = DivisionRounder((float)screenWidth, 60.0f);
+//    const float MAX_HEIGHT_NODES  = DivisionRounder((float)screenHeight, 60.0f);
+//    const int NODE_ARRAY_SIZE = MAX_WIDTH_NODES * MAX_HEIGHT_NODES;
+    const int NODE_ARRAY_SIZE = 4;
 
     Vector2 nodePositionsArray[NODE_ARRAY_SIZE];
+
+    nodePositionsArray[0] = (Vector2){ screenWidth / 5.0f, screenHeight * 4.0f / 5.0f };
+    nodePositionsArray[1] = (Vector2){ screenWidth / 4.0f, screenHeight * 3.0f / 5.0f };
+    nodePositionsArray[2] = (Vector2){ screenWidth / 2.0f, screenHeight / 2.0f };
+    nodePositionsArray[3] = (Vector2){ screenWidth * 3.0f / 5.0f, screenHeight / 6.0f };
     
-    for ( int i=0; i < (int)MAX_WIDTH_NODES; i++) {
-        for ( int j=0; j < (int)MAX_HEIGHT_NODES; j++ ) {
-            // A matrix runs to right and then downwards
-            nodePositionsArray[j * (int)MAX_WIDTH_NODES + i].x = 2 * nodeRadius * i + nodeRadius;
-            nodePositionsArray[j * (int)MAX_WIDTH_NODES + i].y = 2 * nodeRadius * j + nodeRadius;
-        }
-    }
+//    for ( int i=0; i < (int)MAX_WIDTH_NODES; i++) {
+//        for ( int j=0; j < (int)MAX_HEIGHT_NODES; j++ ) {
+//            // A matrix runs to right and then downwards
+//            nodePositionsArray[j * (int)MAX_WIDTH_NODES + i].x = 2 * nodeRadius * i + nodeRadius;
+//            nodePositionsArray[j * (int)MAX_WIDTH_NODES + i].y = 2 * nodeRadius * j + nodeRadius;
+//        }
+//    }
 
     Color colorArray[NODE_ARRAY_SIZE];
     int sidesInNode[NODE_ARRAY_SIZE] = { 0 }; // Default is 0 sides
 
+    sidesInNode[0] = 4;
+    sidesInNode[3] = 3;
+
     // Modified the sides arbitrarily for testing purposes
-    sidesInNode[1] = 3;
-    sidesInNode[2] = 4;
-    sidesInNode[3] = 5;
-    sidesInNode[4] = 6;
-    sidesInNode[5] = 7;
+//    sidesInNode[1] = 3;
+//    sidesInNode[2] = 4;
+//    sidesInNode[3] = 5;
+//    sidesInNode[4] = 6;
+//    sidesInNode[5] = 7;
 
 //    Allowable colors
 //    Color colorArray[] = {
