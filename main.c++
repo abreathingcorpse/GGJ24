@@ -30,6 +30,14 @@ int main(void)
     }
 
     Color colorArray[NODE_ARRAY_SIZE];
+    int sidesInNode[NODE_ARRAY_SIZE] = { 0 }; // Default is 0 sides
+
+    // Modified the sides arbitrarily for testing purposes
+    sidesInNode[1] = 3;
+    sidesInNode[2] = 4;
+    sidesInNode[3] = 5;
+    sidesInNode[4] = 6;
+    sidesInNode[5] = 7;
 
 //    Allowable colors
 //    Color colorArray[] = {
@@ -49,10 +57,32 @@ int main(void)
         elapsed_time = GetFrameTime();
         mouseWheelMove = GetMouseWheelMove();
         mousePosition = GetMousePosition();
-        for (int i=0; i < (sizeof(colorArray)/sizeof(Color)); i++) {
-            if (CheckCollisionPointCircle(mousePosition, nodePositionsArray[i], nodeRadius)) {
-                colorArray[i] = GOLD;
-            } else { colorArray[i] = LIGHTGRAY; }
+        for (int i=0; i < (sizeof(sidesInNode)/sizeof(int)); i++) {
+            switch (sidesInNode[i]) {
+                case 0:
+                    colorArray[i] = LIGHTGRAY;
+                    break;
+                case 3:
+                    colorArray[i] = LIME;
+                    break;
+                case 4:
+                    colorArray[i] = YELLOW;
+                    break;
+                case 5:
+                    colorArray[i] = RED;
+                    break;
+                case 6:
+                    colorArray[i] = SKYBLUE;
+                    break;
+                case 7:
+                    colorArray[i] = PURPLE;
+                    break;
+
+            }
+//            if (CheckCollisionPointCircle(mousePosition, nodePositionsArray[i], nodeRadius)) {
+//                colorArray[i] = GOLD;
+//                sidesInNode[i] = 4;
+//            } else { colorArray[i] = LIGHTGRAY; }
         }
 //        nodePosition.x += mouseWheelMove * 10.0f;
         // --- End of Update 
@@ -60,13 +90,22 @@ int main(void)
         // --- Drawing 
 		BeginDrawing();
 			ClearBackground(RAYWHITE);
-//            DrawText(TextFormat("MAX_WIDTH_NODES : %.02f", MAX_WIDTH_NODES), 20, 30, 30, DARKGRAY);
 
             // Draw the Nodes
             for (int i = 0; i < (sizeof(nodePositionsArray)/sizeof(Vector2)); i++) {
-                DrawCircleV(nodePositionsArray[i], nodeRadius, colorArray[i]);
-//                DrawPoly(nodePositionsArray[i], 3, nodeRadius, -90.0f, colorArray[i]);
+                if (sidesInNode[i] == 0) {
+                    DrawCircleV(nodePositionsArray[i], nodeRadius, colorArray[i]);
+                } else if (sidesInNode[i] == 3) {
+                    DrawTriangle((Vector2){nodePositionsArray[i].x, nodePositionsArray[i].y - nodeRadius},
+                                (Vector2){nodePositionsArray[i].x - 25.0f, nodePositionsArray[i].y + 25.0f},
+                                (Vector2){nodePositionsArray[i].x + 25.0f, nodePositionsArray[i].y + 25.0f}, LIME);
+                }
+                else {
+                    DrawPoly(nodePositionsArray[i], sidesInNode[i], nodeRadius, -90.0f, colorArray[i]);
+                }
             }
+
+            DrawText(TextFormat("mousePosition : (%.02f. %.02f)", mousePosition.x, mousePosition.y), 20, 80, 30, DARKGRAY);
 
 		EndDrawing();
         // --- End of Drawing 
